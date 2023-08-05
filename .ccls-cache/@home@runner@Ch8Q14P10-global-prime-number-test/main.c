@@ -4,36 +4,44 @@
 #include <stdbool.h>
 #include <math.h>
 
+// Global variables
+int gInputNumber;
+bool gIsInputPrime;
+
 // Declare Functions
-bool isPrime (int);
+void isPrime (void);
 
 int main(void) {
   // Get input 
-  int checkPrime;
   printf ("Enter a number to test if prime: ");
-  scanf ("%d", &checkPrime);
+  scanf ("%d", &gInputNumber);
 
-  // Test whether "checkPrime" is prime
-  bool isInputPrime = isPrime (checkPrime);
+  // Test whether "gInputNumber" is prime
+  isPrime ();
 
   // Print results
-  if (isInputPrime == true)
-    printf ("%d is prime\n", checkPrime);
-  else if (isInputPrime == false)
-    printf ("%d is not prime\n", checkPrime);
+  if (gIsInputPrime == true)
+    printf ("%d is prime\n", gInputNumber);
+  else if (gIsInputPrime == false)
+    printf ("%d is not prime\n", gInputNumber);
   
   return 0;
 }
 
 // Define Functions
-bool isPrime (int inputNumber) {
-  if (inputNumber == 2 || inputNumber == 3)
-    return true;
+void isPrime () {
+  gIsInputPrime = true;
+  
+  if (gInputNumber == 2 || gInputNumber == 3)
+    gIsInputPrime = true;
 
-  for (int testPrime = 3; testPrime < sqrt(inputNumber); testPrime += 2) {
-    if (inputNumber % testPrime == 0)
-      return false;
+  else {
+    for (int testPrime = 3; testPrime < sqrt(gInputNumber); testPrime += 2) {
+      if (gInputNumber % testPrime == 0) {
+        gIsInputPrime = false;
+        break;
+      }
+    }
   }
 
-  return true;
 }
